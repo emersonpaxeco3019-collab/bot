@@ -749,3 +749,4 @@ if __name__ == "__main__":
         print("\n✋ Bot parado pelo usuário")
     except Exception as e:
         print(f"❌ Erro fatal: {e}")
+bot.run(os.getenv("DISCORD_TOKEN"))
