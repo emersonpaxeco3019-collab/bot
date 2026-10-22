@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 from aiohttp import web
 
 load_dotenv()
-from nacl.signing import VerifyKey
-from nacl.exceptions import BadSignatureError
-from pyngrok import ngrok
+
+
+
 import discord
 from discord.ext import commands
 
