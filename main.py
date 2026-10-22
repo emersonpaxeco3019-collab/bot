@@ -6,7 +6,21 @@ from dotenv import load_dotenv
 from aiohttp import web
 
 load_dotenv()
+from flask import Flask
+from threading import Thread
 
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot está online!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
 
 
 import discord
@@ -710,19 +724,12 @@ async def main():
     print(f"✅ Cogs adicionados: {list(bot.cogs.keys())}")
     
     # Iniciar servidor web
-    await start_web_server()
+    keep_alive()
     print("✅ HTTP endpoint disponível em http://0.0.0.0:8080/interacao")
     
-    # Tentar configurar ngrok (opcional)
-    auth_token = os.getenv("NGROK_AUTH_TOKEN")
-    if auth_token:
-        try:
-            ngrok.set_auth_token(auth_token)
-            public_url = ngrok.connect(8080, bind_tls=True)
-            url = getattr(public_url, "public_url", str(public_url))
-            print(f"✅ Tunnel HTTPS público: {url}/interacao")
-        except Exception as e:
-            print(f"⚠️ Ngrok não disponível: {e}")
+    
+    
+   
     
     # Conectar ao Discord
     token = os.getenv("DISCORD_TOKEN")
